@@ -2,8 +2,7 @@ use std::collections::HashSet;
 pub fn score(c: char) -> u8 {
     if c >= 'a' && c <= 'z' {
         c as u8 - 'a' as u8 + 1
-    }
-    else {
+    } else {
         c as u8 - 'A' as u8 + 27
     }
 }
@@ -14,7 +13,9 @@ fn main() -> std::io::Result<()> {
     let lines: Vec<&str> = file.lines().collect();
     for group in lines.chunks(3) {
         let mut map: HashSet<char> = HashSet::new();
-        group[0].chars().for_each(|c| { map.insert(c); });
+        group[0].chars().for_each(|c| {
+            map.insert(c);
+        });
 
         let mut map2: HashSet<char> = HashSet::new();
         for c in group[1].chars() {

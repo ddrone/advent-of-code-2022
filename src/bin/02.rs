@@ -3,14 +3,14 @@ use std::f32::consts::E;
 enum Shape {
     Rock,
     Paper,
-    Scissors
+    Scissors,
 }
 
 #[derive(PartialEq, Eq)]
 enum GameResult {
     Win,
     Lose,
-    Draw
+    Draw,
 }
 
 impl Shape {
@@ -22,7 +22,7 @@ impl Shape {
             'Y' => Some(Shape::Paper),
             'C' => Some(Shape::Scissors),
             'Z' => Some(Shape::Scissors),
-            _ => None
+            _ => None,
         }
     }
 
@@ -30,7 +30,7 @@ impl Shape {
         match self {
             Shape::Rock => 1,
             Shape::Paper => 2,
-            Shape::Scissors => 3
+            Shape::Scissors => 3,
         }
     }
 
@@ -40,28 +40,26 @@ impl Shape {
                 Shape::Rock => GameResult::Draw,
                 Shape::Paper => GameResult::Lose,
                 Shape::Scissors => GameResult::Win,
-            }
+            },
             Shape::Paper => match other {
                 Shape::Rock => GameResult::Win,
                 Shape::Paper => GameResult::Draw,
                 Shape::Scissors => GameResult::Lose,
-            }
+            },
             Shape::Scissors => match other {
                 Shape::Rock => GameResult::Lose,
                 Shape::Paper => GameResult::Win,
                 Shape::Scissors => GameResult::Draw,
-            }
+            },
         }
     }
 
     fn other_shape(&self, outcome: &GameResult) -> Self {
         if Shape::Rock.play(&self) == *outcome {
             Shape::Rock
-        }
-        else if Shape::Paper.play(&self) == *outcome {
+        } else if Shape::Paper.play(&self) == *outcome {
             Shape::Paper
-        }
-        else {
+        } else {
             Shape::Scissors
         }
     }
@@ -73,7 +71,7 @@ impl GameResult {
             'X' => Some(Self::Lose),
             'Y' => Some(Self::Draw),
             'Z' => Some(Self::Win),
-            _ => None
+            _ => None,
         }
     }
 

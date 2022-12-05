@@ -6,8 +6,7 @@ fn main() -> std::io::Result<()> {
         if line.is_empty() {
             sums.push(curr_sum);
             curr_sum = 0;
-        }
-        else {
+        } else {
             let x: i64 = line.parse().unwrap();
             curr_sum += x;
         }
