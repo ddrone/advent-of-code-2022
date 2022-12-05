@@ -27,6 +27,7 @@ fn main() -> std::io::Result<()> {
             if map2.contains(&c) {
                 // Badge found
                 sum += score(c) as u64;
+                break;
             }
         }
     }
