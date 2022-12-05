@@ -22,6 +22,7 @@ fn main() -> std::io::Result<()> {
             let c = v[i];
             if first.contains(&c) {
                 sum += score(c) as u64;
+                break;
             }
         }
     }
