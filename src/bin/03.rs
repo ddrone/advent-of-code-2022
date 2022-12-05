@@ -18,7 +18,7 @@ fn main() -> std::io::Result<()> {
         for i in 0..n {
             first.insert(v[i]);
         }
-        for i in (n+1)..line.len() {
+        for i in n..line.len() {
             let c = v[i];
             if first.contains(&c) {
                 sum += score(c) as u64;
