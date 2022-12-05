@@ -11,18 +11,22 @@ pub fn score(c: char) -> u8 {
 fn main() -> std::io::Result<()> {
     let file = std::fs::read_to_string("data/03.txt")?;
     let mut sum: u64 = 0;
-    for line in file.lines() {
-        let v: Vec<char> = line.chars().collect();
-        let n = line.len() / 2;
-        let mut first: HashSet<char> = HashSet::new();
-        for i in 0..n {
-            first.insert(v[i]);
+    let lines: Vec<&str> = file.lines().collect();
+    for group in lines.chunks(3) {
+        let mut map: HashSet<char> = HashSet::new();
+        group[0].chars().for_each(|c| { map.insert(c); });
+
+        let mut map2: HashSet<char> = HashSet::new();
+        for c in group[1].chars() {
+            if map.contains(&c) {
+                map2.insert(c);
+            }
         }
-        for i in n..line.len() {
-            let c = v[i];
-            if first.contains(&c) {
+
+        for c in group[2].chars() {
+            if map2.contains(&c) {
+                // Badge found
                 sum += score(c) as u64;
-                break;
             }
         }
     }
