@@ -6,6 +6,7 @@ enum Shape {
     Scissors
 }
 
+#[derive(PartialEq, Eq)]
 enum GameResult {
     Win,
     Lose,
@@ -52,9 +53,30 @@ impl Shape {
             }
         }
     }
+
+    fn other_shape(&self, outcome: &GameResult) -> Self {
+        if Shape::Rock.play(&self) == *outcome {
+            Shape::Rock
+        }
+        else if Shape::Paper.play(&self) == *outcome {
+            Shape::Paper
+        }
+        else {
+            Shape::Scissors
+        }
+    }
 }
 
 impl GameResult {
+    fn from_char(c: char) -> Option<Self> {
+        match c {
+            'X' => Some(Self::Lose),
+            'Y' => Some(Self::Draw),
+            'Z' => Some(Self::Win),
+            _ => None
+        }
+    }
+
     fn score(&self) -> u64 {
         match self {
             GameResult::Win => 6,
@@ -70,7 +92,8 @@ fn main() -> std::io::Result<()> {
     for line in file.lines() {
         let v: Vec<char> = line.chars().collect();
         let other = Shape::from_char(v[0]).unwrap();
-        let me = Shape::from_char(v[2]).unwrap();
+        let result = GameResult::from_char(v[2]).unwrap();
+        let me = other.other_shape(&result);
 
         sum += me.score() + me.play(&other).score();
     }
