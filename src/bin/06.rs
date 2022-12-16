@@ -6,9 +6,9 @@ fn main() -> std::io::Result<()> {
     let chars: Vec<char> = file.chars().collect();
 
     for i in 0..chars.len() {
-        let distinct: HashSet<char> = HashSet::from_iter(chars[i..i+4].iter().map(|x| *x));
-        if distinct.len() == 4 {
-            println!("{}", i + 4);
+        let distinct: HashSet<char> = HashSet::from_iter(chars[i..i+14].iter().map(|x| *x));
+        if distinct.len() == 14 {
+            println!("{}", i + 14);
             break;
         }
     }
