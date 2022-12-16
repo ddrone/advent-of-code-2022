@@ -25,16 +25,20 @@ fn main() -> std::io::Result<()> {
     // move 2 from 4 to 6
     for line in &lines[split_index+1..] {
         let words: Vec<&str> = line.split_whitespace().collect();
-        let count: u32 = words[1].parse().unwrap();
+        let count: i32 = words[1].parse().unwrap();
         let mut from: i32 = words[3].parse().unwrap();
         from -= 1;
         let mut to: i32 = words[5].parse().unwrap();
         to -= 1;
 
-        for _i in 0..count {
-            let item = stacks[from as usize].pop().unwrap();
-            stacks[to as usize].push(item);
-        }
+
+        let mut items_to_push = {
+            let stack_from = &mut stacks[from as usize];
+            Vec::from(&stack_from[((stack_from.len() as i32 - count) as usize)..])
+        };
+        stacks[to as usize].append(&mut items_to_push);
+        let new_size = stacks[from as usize].len() as i32 - count;
+        stacks[from as usize].truncate(new_size as usize);
     }
 
     println!("{:?}", stacks);
